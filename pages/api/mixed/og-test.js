@@ -1,6 +1,25 @@
 import puppeteer from "puppeteer";
+import Cors from "cors";
+
+// Initialize CORS
+const cors = Cors({
+  methods: ["GET", "POST", "OPTIONS"],
+});
+
+const runMiddleware = (req, res, fn) =>
+  new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
 
 export default async function handler(req, res) {
+  // Run CORS middleware
+  await runMiddleware(req, res, cors);
+
   // Allow only POST requests
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
