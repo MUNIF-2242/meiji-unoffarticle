@@ -24,7 +24,7 @@ const OpenAILoginContent = () => {
     if (result?.error) {
       setError(result.error); // Display error message
     } else {
-      router.push("/openai/projects/athlete-chatbot"); // Redirect to protected page on success
+      router.push("/mixed/og-app"); // Redirect to protected page on success
     }
   };
 
